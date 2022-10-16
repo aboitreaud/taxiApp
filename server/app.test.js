@@ -27,3 +27,7 @@ test("Price of ride of distance 2 miles, neither at nigh nor in busy period, exp
 test("Price of ride of distance 2 miles, starting in busy period and ending at night, expected to be 7.50 EUR", () => {
     expect(computePrice(2, new Date("2022-06-19T18:01:17.031Z"), 10800)).toBe((7.5).toFixed(2));
 });
+
+test("Price of ride of distance 2 miles, lasting longer than busy period (starting before & ending after), expected to be 7.00 EUR", () => {
+    expect(computePrice(2, new Date("2022-06-19T15:01:17.031Z"), 14400)).toBe((7).toFixed(2));
+});

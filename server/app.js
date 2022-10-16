@@ -23,17 +23,22 @@ const computePrice = (distance, startTime, duration, initialCharge = 1,
     var date = new Date(null);
     date.setSeconds(duration);
     var endTime = new Date(null);
-    endTime.setTime(d.getTime() + duration * 1000);
+    endTime.setTime(d.getTime() + duration * 1000); // convert duration from s to ms
     const endHour = endTime.getUTCHours();
+
     price = initialCharge;
-    price += baseDistanceFare * Math.ceil(distance * 5);
+    price += baseDistanceFare * Math.ceil(distance * 5); // every 1/5th of a mile started is charged
 
     if (startHour <= 6 || endHour >= 20 || endHour == 0) {
-      // starts before 6 AM or ends after 8 PM, ie ride is, at least partially, in a night period
+      // starts before 6 AM or ends after 8 PM (including midnight), 
+      // ie. ride is, at least partially, in a night period
       price += nightExtra;
     }
-    if ((endHour >= 16 && endHour <= 19) || (startHour >= 16 && startHour <= 19)) {
-      // ends after 4PM or starts before 7PM, ie ride is, at least partially, in a busy period
+    if ((endHour >= 16 && endHour < 19) || (startHour >= 16 && startHour < 19)
+      || (startHour < 16 && endHour >= 19)) {
+      // ends after 4PM but stricly before 7PM, or starts stricly before 7PM but after 4PM, 
+      // or ride starts before 4PM & ends after 7PM
+      // ie. ride is, at least partially, in a busy period
       price += busyExtra;
     }
   }
