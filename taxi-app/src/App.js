@@ -20,8 +20,6 @@ const App = () => {
         duration={ride.duration}
         price={ride.price} />
     </tr>
-
-
   );
 
   return (

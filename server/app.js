@@ -25,7 +25,6 @@ const computePrice = (distance, startTime, duration, initialCharge = 1,
     var endTime = new Date(null);
     endTime.setTime(d.getTime() + duration * 1000);
     const endHour = endTime.getUTCHours();
-    console.log(endHour);
     price = initialCharge;
     price += baseDistanceFare * Math.ceil(distance * 5);
 
@@ -33,7 +32,7 @@ const computePrice = (distance, startTime, duration, initialCharge = 1,
       // starts before 6 AM or ends after 8 PM, ie ride is, at least partially, in a night period
       price += nightExtra;
     }
-    if ((endHour >= 16 && endHour <= 19) || (startHour >= 16 && startHour <= 19) ) {
+    if ((endHour >= 16 && endHour <= 19) || (startHour >= 16 && startHour <= 19)) {
       // ends after 4PM or starts before 7PM, ie ride is, at least partially, in a busy period
       price += busyExtra;
     }
@@ -43,7 +42,8 @@ const computePrice = (distance, startTime, duration, initialCharge = 1,
 
 function getRidePrices() {
   for (let rideId = 0; rideId < data.length; rideId++) {
-    data[rideId]['price'] = computePrice(data[rideId]['distance'], data[rideId]['startTime']);
+    data[rideId]['price'] = computePrice(data[rideId]['distance'],
+      data[rideId]['startTime'], data[rideId]['duration']);
   }
   return data;
 };
