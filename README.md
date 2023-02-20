@@ -1,6 +1,6 @@
 # taxiApp
 Taxi App that displays rides and calculates the price of a ride.  <br />
-The frontend in **React**, the chosen technology for the backend is **Express**.
+The frontend relies on **React**, the chosen technology for the backend is **Express**.
 
 The demo database containing the rides is in `server/db.json`. It initially contains the four rides of the given data.
 
